@@ -3,22 +3,19 @@ package com.my.firstProject.practo.dto;
 import com.my.firstProject.practo.entity.Appointment;
 import com.my.firstProject.practo.entity.Doctor;
 import com.my.firstProject.practo.entity.Patient;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-
+@Data
+@AllArgsConstructor
 public class BookingDTO {
+    private String message;
+    private String appointmentId;
+    private String doctorName;
+    private String specialization;
+    private String patientName;
+    private String location;
+    private Integer timeSlot;
+    private Integer fees;
 
-    private Doctor doctor;
-    private Patient patient;
-    private Appointment appointment;
-
-    public BookingDTO(Doctor doctor, Patient patient, Appointment appointment) {
-        this.appointment = appointment;
-        this.patient = patient;
-        this.doctor = doctor;
-    }
-
-    @Override
-    public String toString() {
-        return "Appointment done for Patient " + appointment.getPatientsId() + " with Doctor " + appointment.getDoctorsId() + " at time " + appointment.getTimeSlot();
-    }
 }

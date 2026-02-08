@@ -42,12 +42,6 @@ public class DoctorService {
     public List<Appointment> findAppointmentByDoctor(String id){
         //make sure appointment is correct
         Doctor doctor = doctorRepository.findById(id).get();
-        List<Appointment> appointments = appointmentRepository.findAll();
-        List<Appointment> listOfAppointmentForDoctor = new ArrayList<>();
-        for(Appointment i: appointments){
-            if(i.getDoctorsId().equals(doctor.getId()))
-                listOfAppointmentForDoctor.add(i);
-        }
-        return listOfAppointmentForDoctor;
+       return doctor.getAppointments();
     }
 }

@@ -1,5 +1,6 @@
 package com.my.firstProject.practo.controller;
 
+import com.my.firstProject.practo.dto.AppointmentDTO;
 import com.my.firstProject.practo.dto.BookingDTO;
 import com.my.firstProject.practo.entity.Appointment;
 import com.my.firstProject.practo.entity.Doctor;
@@ -26,7 +27,8 @@ public class AppointmentController {
     }
 
     @PostMapping("/save")
-    private String saveAppointment(@RequestBody Appointment appointment){
-        return appointmentService.saveAppointment(appointment);
+    private BookingDTO saveAppointment(@RequestBody AppointmentDTO appointment){
+        BookingDTO bookingDTO = appointmentService.saveAppointment(appointment);
+        return bookingDTO;
     }
 }
