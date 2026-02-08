@@ -1,0 +1,17 @@
+-- INSERT INTO doctor (id, name, specialization, location, fees, experience, timeSlots)
+-- VALUES ('DOC_101', 'Dr. Aarav Malhotra', 'Cardiologist', 'Bangalore', 900, 12.5, ),
+--        ('DOC_102', 'Dr. Meera Iyer', 'Dermatologist', 'Chennai', 700, 8.0),
+--        ('DOC_103', 'Dr. Rohan Kulkarni', 'Orthopedics', 'Pune', 850, 10.2),
+--        ('DOC_104', 'Dr. Ananya Sen', 'Pulmonologist', 'Kolkata', 750, 9.1),
+--        ('DOC_105', 'Dr. Kunal Shah', 'Dentist', 'Mumbai', 600, 6.4);
+--
+--
+-- INSERT INTO appointment (id, time_slot)
+-- VALUES ('APT_002', '10:30:00'),
+--        ('APT_003', '11:00:00'),
+--        ('APT_004', '15:30:00');
+--
+-- INSERT INTO doctor_appointment (doctor_id, appointment_id)
+-- VALUES ('DOC_101','APT_002'),
+--        ('DOC_102','APT_003'),
+--        ('DOC_103','APT_004');

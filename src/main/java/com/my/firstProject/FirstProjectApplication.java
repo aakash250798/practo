@@ -2,13 +2,16 @@ package com.my.firstProject;
 
 import com.my.firstProject.practo.entity.Appointment;
 import com.my.firstProject.practo.entity.Doctor;
+import com.my.firstProject.practo.entity.Patient;
 import com.my.firstProject.practo.repository.DoctorRepository;
+import com.my.firstProject.practo.repository.PatientRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -16,6 +19,9 @@ public class FirstProjectApplication {
 
     @Autowired
     DoctorRepository doctorRepository;
+
+    @Autowired
+    PatientRepository patientRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(FirstProjectApplication.class, args);
@@ -54,9 +60,9 @@ public class FirstProjectApplication {
         );
         doctorRepository.saveAll(doctors);
 
-
-
-
+        List<Patient> patients = Arrays.asList(new Patient("PAT101","Akash"),
+                new Patient("PAT102","Dhoni"));
+        patientRepository.saveAll(patients);
 
     }
 

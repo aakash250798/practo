@@ -1,8 +1,10 @@
 package com.my.firstProject.practo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.List;
 
@@ -11,19 +13,11 @@ import java.util.List;
 public class Appointment {
     @Id
     private String id;
-    @ManyToOne
-    private Doctor doctor;
-    @ManyToOne
-    private Patient patient;
+    private String doctorsId;
+    private String patientsId;
     private Integer timeSlot;
 
-    public void setTimeSlot(Integer timeSlot){
-        List<Integer> timeSlots = doctor.getTimeSlots();
-        if(timeSlots.contains(timeSlot)){
-            timeSlots.remove(timeSlot);
-        }
-        else
-            this.timeSlot = null;
+    public Appointment() {
     }
 
 }

@@ -31,9 +31,6 @@ public class Doctor {
     private Double experience;
     private String shift;
     private List<Integer> timeSlots; //LocalTime time = LocalTime.of(10, 30, 15);
-    @OneToMany
-    @JsonIgnore
-    private List<Appointment> appointment;
 
     public Doctor() {
 
@@ -65,6 +62,6 @@ public class Doctor {
         this.location = location;
         this.fees = fees;
         this.experience = experience;
-        this.shift = shift;
+        setShift(shift);
     };
 }
