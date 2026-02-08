@@ -1,8 +1,5 @@
 package com.my.firstProject.practo.dto;
 
-import com.my.firstProject.practo.entity.Appointment;
-import com.my.firstProject.practo.entity.Doctor;
-import com.my.firstProject.practo.entity.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

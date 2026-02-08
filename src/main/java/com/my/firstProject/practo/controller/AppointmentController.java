@@ -16,9 +16,6 @@ import java.util.List;
 public class AppointmentController {
 
     @Autowired
-    DoctorService doctorService;
-
-    @Autowired
     AppointmentService appointmentService;
 
     @GetMapping("/find")
