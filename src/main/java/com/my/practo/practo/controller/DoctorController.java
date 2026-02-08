@@ -1,7 +1,7 @@
-package com.my.firstProject.practo.controller;
+package com.my.practo.practo.controller;
 
-import com.my.firstProject.practo.entity.Doctor;
-import com.my.firstProject.practo.service.DoctorService;
+import com.my.practo.practo.entity.Doctor;
+import com.my.practo.practo.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

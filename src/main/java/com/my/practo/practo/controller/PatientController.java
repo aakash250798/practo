@@ -1,4 +1,4 @@
-package com.my.firstProject.practo.controller;
+package com.my.practo.practo.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 

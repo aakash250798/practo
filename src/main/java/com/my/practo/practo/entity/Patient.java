@@ -1,9 +1,7 @@
-package com.my.firstProject.practo.entity;
+package com.my.practo.practo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;

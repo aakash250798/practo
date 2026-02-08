@@ -1,24 +1,21 @@
-package com.my.firstProject;
+package com.my.practo;
 
-import com.my.firstProject.practo.dto.AppointmentDTO;
-import com.my.firstProject.practo.entity.Appointment;
-import com.my.firstProject.practo.entity.Doctor;
-import com.my.firstProject.practo.entity.Patient;
-import com.my.firstProject.practo.repository.AppointmentRepository;
-import com.my.firstProject.practo.repository.DoctorRepository;
-import com.my.firstProject.practo.repository.PatientRepository;
-import com.my.firstProject.practo.service.AppointmentService;
+import com.my.practo.practo.dto.AppointmentDTO;
+import com.my.practo.practo.entity.Doctor;
+import com.my.practo.practo.entity.Patient;
+import com.my.practo.practo.repository.DoctorRepository;
+import com.my.practo.practo.repository.PatientRepository;
+import com.my.practo.practo.service.AppointmentService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-public class FirstProjectApplication {
+public class PractoApplication {
 
     @Autowired
     DoctorRepository doctorRepository;
@@ -30,7 +27,7 @@ public class FirstProjectApplication {
     private AppointmentService appointmentService;
 
     public static void main(String[] args) {
-        SpringApplication.run(FirstProjectApplication.class, args);
+        SpringApplication.run(PractoApplication.class, args);
     }
 
     @PostConstruct

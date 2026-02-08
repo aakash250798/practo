@@ -1,13 +1,13 @@
-package com.my.firstProject.practo.service;
+package com.my.practo.practo.service;
 
-import com.my.firstProject.practo.dto.AppointmentDTO;
-import com.my.firstProject.practo.dto.BookingDTO;
-import com.my.firstProject.practo.entity.Appointment;
-import com.my.firstProject.practo.entity.Doctor;
-import com.my.firstProject.practo.entity.Patient;
-import com.my.firstProject.practo.repository.AppointmentRepository;
-import com.my.firstProject.practo.repository.DoctorRepository;
-import com.my.firstProject.practo.repository.PatientRepository;
+import com.my.practo.practo.dto.AppointmentDTO;
+import com.my.practo.practo.dto.BookingDTO;
+import com.my.practo.practo.entity.Appointment;
+import com.my.practo.practo.entity.Doctor;
+import com.my.practo.practo.entity.Patient;
+import com.my.practo.practo.repository.AppointmentRepository;
+import com.my.practo.practo.repository.DoctorRepository;
+import com.my.practo.practo.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

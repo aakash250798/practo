@@ -1,4 +1,4 @@
-package com.my.firstProject.practo.dto;
+package com.my.practo.practo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
