@@ -41,9 +41,4 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findById(id).get();
         return doctor.getAppointment();
     }
-
-
-
-
-
 }

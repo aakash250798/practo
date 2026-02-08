@@ -4,8 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
-
-import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,6 +15,15 @@ public class Appointment {
     private Doctor doctor;
     @ManyToOne
     private Patient patient;
-    private LocalTime timeSlot;
+    private Integer timeSlot;
+
+    public void setTimeSlot(Integer timeSlot){
+        List<Integer> timeSlots = doctor.getTimeSlots();
+        if(timeSlots.contains(timeSlot)){
+            timeSlots.remove(timeSlot);
+        }
+        else
+            this.timeSlot = null;
+    }
 
 }

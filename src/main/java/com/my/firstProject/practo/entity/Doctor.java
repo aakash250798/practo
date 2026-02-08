@@ -6,7 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +35,10 @@ public class Doctor {
     @JsonIgnore
     private List<Appointment> appointment;
 
+    public Doctor() {
+
+    }
+
     public void setShift(String shift) {
        if(shift.equals("Morning")){
            this.setTimeSlots(Arrays.asList(900, 930, 1000, 1030, 1100, 1130, 1200));
@@ -55,4 +58,13 @@ public class Doctor {
        else
            this.setTimeSlots(new ArrayList<>());
     }
+    public Doctor(String id, String name, String specialization,String location,  Integer fees,  Double experience, String shift){
+        this.id = id;
+        this.name = name;
+        this.specialization = specialization;
+        this.location = location;
+        this.fees = fees;
+        this.experience = experience;
+        this.shift = shift;
+    };
 }
