@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -37,28 +38,32 @@ public class AppointmentService {
     @Transactional
     public BookingDTO saveAppointment(AppointmentDTO appointmentDTO) {
         //make sure appointment is correct
-        Optional<Doctor> doctor = doctorRepository.findById(appointmentDTO.getDoctorId());
-        Optional<Patient> patient = patientRepository.findById(appointmentDTO.getPatientId());
-        if (doctor.isEmpty() || patient.isEmpty())
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(appointmentDTO.getDoctorId());
+        Optional<Patient> optionalPatient = patientRepository.findById(appointmentDTO.getPatientId());
+        if (optionalDoctor.isEmpty() || optionalPatient.isEmpty())
             return new BookingDTO("Wrong Doctor or Patient Id", null,
-                    null, null, null, null, appointmentDTO.getTimeSlot(),null);
+                    null, null, null, null, appointmentDTO.getTimeSlot(), null);
 
-        List<Integer> timeSlots = doctor.get().getTimeSlots();
+        // booked timeSlot means timeSlot
+        Doctor doctor = optionalDoctor.get();
+        Patient patient = optionalPatient.get();
+        List<Integer> timeSlots = doctor.getTimeSlots();
 
-        if (timeSlots.contains(appointmentDTO.getTimeSlot())) {
+        if (!timeSlots.contains(appointmentDTO.getTimeSlot())) {
             // book appointment
             Appointment appointment = new Appointment();
             appointment.setId(String.valueOf(UUID.randomUUID()));
-            timeSlots.remove(appointmentDTO.getTimeSlot());
-            doctor.get().setTimeSlots(timeSlots);
-            doctorRepository.save(doctor.get());
+            timeSlots.add(appointmentDTO.getTimeSlot());
+            doctor.setTimeSlots(timeSlots);
+            doctorRepository.save(doctor);
             appointment.setTimeSlot(appointmentDTO.getTimeSlot());
-            appointment.setDoctor(doctor.get());
-            appointment.setPatient(patient.get());
+            appointment.setDoctor(doctor);
+            appointment.setPatient(patient);
             appointmentRepository.save(appointment);
-            return new BookingDTO( "Appointment Booked Successfully",appointment.getId(),doctor.get().getName(),
-                    doctor.get().getSpecialization(),patient.get().getName(),doctor.get().getLocation(),appointmentDTO.getTimeSlot(),doctor.get().getFees());
-        } else
-            return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.get().getName(), doctor.get().getSpecialization(), patient.get().getName(),doctor.get().getLocation(), appointmentDTO.getTimeSlot(),null);
+            return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
+                    doctor.getSpecialization(), patient.getName(), doctor.getLocation(), appointmentDTO.getTimeSlot(), doctor.getFees());
+        }
+        else
+            return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.getName(), doctor.getSpecialization(), patient.getName(), doctor.getLocation(), appointmentDTO.getTimeSlot(), null);
     }
 }
