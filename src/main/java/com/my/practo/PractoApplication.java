@@ -1,6 +1,7 @@
 package com.my.practo;
 
 import com.my.practo.practo.dto.AppointmentDTO;
+import com.my.practo.practo.dto.TimeSlot;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.entity.Patient;
 import com.my.practo.practo.repository.DoctorRepository;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -102,16 +105,16 @@ public class PractoApplication {
         );
         patientService.bulkSavePatients(patients);
 
-        AppointmentDTO a1 = new AppointmentDTO("DOC_101", "PAT_101", 930);
-        AppointmentDTO a2 = new AppointmentDTO("DOC_105", "PAT_104", 1230);
-        AppointmentDTO a3 = new AppointmentDTO("DOC_108", "PAT_108", 1400);
-        AppointmentDTO a4 = new AppointmentDTO("DOC_103", "PAT_110", 2030);
-        AppointmentDTO a5 = new AppointmentDTO("DOC_110", "PAT_112", 1000);
-        AppointmentDTO a6 = new AppointmentDTO("DOC_117", "PAT_116", 1330);
-        AppointmentDTO a7 = new AppointmentDTO("DOC_120", "PAT_119", 2230);
-        AppointmentDTO a8 = new AppointmentDTO("DOC_114", "PAT_105", 1430);
-        AppointmentDTO a9 = new AppointmentDTO("DOC_106", "PAT_107", 1730);
-        AppointmentDTO a10 = new AppointmentDTO("DOC_109", "PAT_103", 2130);
+        AppointmentDTO a1 = new AppointmentDTO("DOC_101", "PAT_101", TimeSlot.startTime.plusHours(9));
+        AppointmentDTO a2 = new AppointmentDTO("DOC_105", "PAT_104", TimeSlot.startTime.plusHours(12));
+        AppointmentDTO a3 = new AppointmentDTO("DOC_108", "PAT_108", TimeSlot.startTime.plusHours(14));
+        AppointmentDTO a4 = new AppointmentDTO("DOC_103", "PAT_110", TimeSlot.startTime.plusHours(20));
+        AppointmentDTO a5 = new AppointmentDTO("DOC_110", "PAT_112", TimeSlot.startTime.plusHours(10));
+        AppointmentDTO a6 = new AppointmentDTO("DOC_117", "PAT_116", TimeSlot.startTime.plusHours(13));
+        AppointmentDTO a7 = new AppointmentDTO("DOC_120", "PAT_119", TimeSlot.startTime.plusHours(22));
+        AppointmentDTO a8 = new AppointmentDTO("DOC_114", "PAT_105", TimeSlot.startTime.plusHours(14));
+        AppointmentDTO a9 = new AppointmentDTO("DOC_106", "PAT_107", TimeSlot.startTime.plusHours(17));
+        AppointmentDTO a10 = new AppointmentDTO("DOC_109", "PAT_103", TimeSlot.startTime.plusHours(21));
 
         List<AppointmentDTO> appointmentDTOList = Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
         for (AppointmentDTO a : appointmentDTOList) {

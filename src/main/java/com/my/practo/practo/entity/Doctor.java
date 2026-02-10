@@ -1,10 +1,8 @@
 package com.my.practo.practo.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.my.practo.practo.dto.TimeSlot;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,14 +24,16 @@ public class Doctor {
     private Integer fees;
     private Integer experience;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Hospital hospital;
+
     public enum Shift{
         Morning, Afternoon, Evening, Night
     };
     private Shift shift;
 
-    @ElementCollection
     @Setter
-    private List<Integer> timeSlots = new ArrayList<>(); //LocalTime time = LocalTime.of(10, 30, 15);
+    private TimeSlot timeSlot; //LocalTime time = LocalTime.of(10, 30, 15);
     @OneToMany(mappedBy = "doctor")
     @JsonManagedReference
     private List<Appointment> appointments;
@@ -49,6 +49,7 @@ public class Doctor {
         this.fees = fees;
         this.experience = experience;
         this.shift = shift;
+        this.timeSlot = new TimeSlot();
     }
 }
 

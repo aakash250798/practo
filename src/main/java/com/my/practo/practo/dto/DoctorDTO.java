@@ -55,7 +55,7 @@ public class DoctorDTO {
         if (shift.equals("Night")) {
             timeSlots.addAll(Arrays.asList(1800,1830,1900,1930,2000,2030,2100));
         }
-        timeSlots.removeAll(doctor.getTimeSlots());
+        //timeSlots.removeAll(doctor.getTimeSlots());
         return timeSlots;
 
     }

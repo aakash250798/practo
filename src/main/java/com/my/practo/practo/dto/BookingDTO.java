@@ -4,6 +4,8 @@ import com.my.practo.practo.entity.Doctor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class BookingDTO {
     private String message;
@@ -12,9 +14,8 @@ public class BookingDTO {
     private Doctor.Specialization specialization;
     private String patientName;
     private String location;
-    private Integer timeSlot;
+    private LocalDateTime timing;
     private Integer fees;
-
 
     public BookingDTO(String message,
                       String appointmentId,
@@ -22,7 +23,7 @@ public class BookingDTO {
                       Doctor.Specialization specialization,
                       String patientName,
                       String location,
-                      Integer timeSlot,
+                      LocalDateTime timing,
                       Integer fees) {
 
         this.message = message;
@@ -31,7 +32,7 @@ public class BookingDTO {
         this.specialization = specialization;
         this.patientName = patientName;
         this.location = location;
-        this.timeSlot = timeSlot;
+        this.timing = timing;
         this.fees = fees;
     }
 

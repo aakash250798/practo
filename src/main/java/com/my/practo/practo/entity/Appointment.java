@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -16,7 +18,7 @@ public class Appointment {
     @Setter
     private String id;
     @Setter
-    private Integer timeSlot;
+    private LocalDateTime timeSlot;
     @ManyToOne(optional = false)
     @JoinColumn(name = "doctor_id")
     @JsonBackReference

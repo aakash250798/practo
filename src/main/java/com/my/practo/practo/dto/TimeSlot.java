@@ -1,0 +1,47 @@
+package com.my.practo.practo.dto;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Embeddable
+
+
+public class TimeSlot {
+    
+
+    @Getter
+    private List<LocalDateTime> bookedTimeSlots;
+    @Getter
+    private List<LocalDateTime> availableTimeSlots;
+
+    public static LocalDateTime startTime = LocalDateTime.parse("2026-02-11T00:00:00.000000") ;
+
+    public void setBookedTimeSlots(LocalDateTime time){
+        if(bookTimeSlot(time)){
+            availableTimeSlots.remove(time);
+            bookedTimeSlots.add(time);
+        }
+
+    }
+
+    public boolean bookTimeSlot(LocalDateTime time){
+        return availableTimeSlots.contains(time);
+    }
+
+    public TimeSlot(){
+        LocalDateTime startTime =  TimeSlot.startTime.plusHours(1);
+        LocalDateTime endTime =startTime.plusHours(24);
+        List<LocalDateTime> availableSlots =  new ArrayList<>();
+        for(LocalDateTime i = startTime; i.isBefore(endTime);i = i.plusMinutes(30))
+            availableSlots.add(i);
+        this.availableTimeSlots = availableSlots;
+    }
+
+}
