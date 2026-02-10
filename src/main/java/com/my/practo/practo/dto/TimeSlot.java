@@ -17,9 +17,9 @@ public class TimeSlot {
     
 
     @Getter
-    private List<LocalDateTime> bookedTimeSlots;
+    private List<LocalDateTime> bookedTimeSlots = new ArrayList<>();
     @Getter
-    private List<LocalDateTime> availableTimeSlots;
+    private List<LocalDateTime> availableTimeSlots = new ArrayList<>();
 
     public static LocalDateTime startTime = LocalDateTime.parse("2026-02-11T00:00:00.000000") ;
 
