@@ -16,10 +16,11 @@ public class DoctorController {
     @Autowired
     DoctorService practoService;
 
-    @GetMapping("/find")
-    private List<Doctor> findAllDoctors(){
-        return practoService.findAllDoctors();
-    }
+    //Not to expose the Doctor entity
+//    @GetMapping("/find")
+//    private List<Doctor> findAllDoctors(){
+//        return practoService.findAllDoctors();
+//    }
 
     @GetMapping("/findBySpecialization")
     private Set<DoctorDTO> findBySpecialization(@RequestParam String specialization){

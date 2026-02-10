@@ -30,7 +30,7 @@ public class Doctor {
     public enum Shift{
         Morning, Afternoon, Evening, Night
     };
-    private Shift shift;
+
 
     @Setter
     private TimeSlot timeSlot; //LocalTime time = LocalTime.of(10, 30, 15);
@@ -41,14 +41,14 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String id, String name, Specialization specialization, String location, Integer fees, Integer experience, Shift shift) {
+    public Doctor(String id, String name, Specialization specialization, String location, Integer fees, Integer experience) {
         this.id = id;
         this.name = name;
         this.specialization = specialization;
         this.location = location;
         this.fees = fees;
         this.experience = experience;
-        this.shift = shift;
+
         this.timeSlot = new TimeSlot();
     }
 }
