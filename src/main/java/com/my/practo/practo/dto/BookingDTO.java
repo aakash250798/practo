@@ -1,7 +1,6 @@
 package com.my.practo.practo.dto;
 
 import com.my.practo.practo.entity.Doctor;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;

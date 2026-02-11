@@ -4,8 +4,6 @@ import com.my.practo.practo.dto.AppointmentDTO;
 import com.my.practo.practo.dto.TimeSlot;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.entity.Patient;
-import com.my.practo.practo.repository.DoctorRepository;
-import com.my.practo.practo.repository.PatientRepository;
 import com.my.practo.practo.service.AppointmentService;
 import com.my.practo.practo.service.DoctorService;
 import com.my.practo.practo.service.PatientService;
@@ -16,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 

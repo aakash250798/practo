@@ -3,13 +3,10 @@ package com.my.practo.practo.service;
 import com.my.practo.practo.dto.DoctorDTO;
 import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Doctor;
-import com.my.practo.practo.repository.AppointmentRepository;
 import com.my.practo.practo.repository.DoctorRepository;
-import com.my.practo.practo.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,11 +19,6 @@ public class DoctorService {
 
     @Autowired
     DoctorRepository doctorRepository;
-
-    @Autowired
-    PatientRepository patientRepository;
-    @Autowired
-    private AppointmentRepository appointmentRepository;
 
     public List<Doctor> findAllDoctors() {
         return doctorRepository.findAll();
