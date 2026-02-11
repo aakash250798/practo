@@ -1,6 +1,7 @@
 package com.my.practo.practo.dto;
 
 import com.my.practo.practo.entity.Doctor;
+import com.my.practo.practo.entity.Hospital;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ public class BookingDTO {
     private String doctorName;
     private Doctor.Specialization specialization;
     private String patientName;
-    private String location;
+    private Hospital hospital;
     private LocalDateTime timing;
     private Integer fees;
 
@@ -21,7 +22,7 @@ public class BookingDTO {
                       String doctorName,
                       Doctor.Specialization specialization,
                       String patientName,
-                      String location,
+                      Hospital hospital,
                       LocalDateTime timing,
                       Integer fees) {
 
@@ -30,7 +31,7 @@ public class BookingDTO {
         this.doctorName = doctorName;
         this.specialization = specialization;
         this.patientName = patientName;
-        this.location = location;
+        this.hospital = hospital;
         this.timing = timing;
         this.fees = fees;
     }

@@ -60,7 +60,7 @@ public class AppointmentService {
             appointment.setPatient(patient);
             appointmentRepository.save(appointment);
             return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
-                    doctor.getSpecialization(), patient.getName(), doctor.getLocation(), timing, doctor.getFees());
+                    doctor.getSpecialization(), patient.getName(), doctor.getHospital(), timing, doctor.getFees());
 
         }
 
@@ -68,6 +68,6 @@ public class AppointmentService {
             // book appointment
 
         else
-            return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.getName(), doctor.getSpecialization(), patient.getName(), doctor.getLocation(), appointmentDTO.getTiming(), null);
+            return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.getName(), doctor.getSpecialization(), patient.getName(), doctor.getHospital(), appointmentDTO.getTiming(), null);
     }
 }

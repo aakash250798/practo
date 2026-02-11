@@ -1,6 +1,7 @@
 package com.my.practo.practo.dto;
 
 import com.my.practo.practo.entity.Doctor;
+import com.my.practo.practo.entity.Hospital;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class DoctorDTO {
     private String id;
     private String name;
     private Doctor.Specialization specialization;
-    private String location;
+    private Hospital hospital;
     private Integer fees;
     private Integer experience;
     private List<LocalDateTime> timeSlots;
@@ -27,7 +28,7 @@ public class DoctorDTO {
             doctorDTO.id = doctor.getId();
             doctorDTO.name = doctor.getName();
             doctorDTO.specialization = doctor.getSpecialization();
-            doctorDTO.location = doctor.getLocation();
+            doctorDTO.hospital = doctor.getHospital();
             doctorDTO.fees = doctor.getFees();
             doctorDTO.experience = doctor.getExperience();
             doctorDTO.timeSlots = doctor.getTimeSlot().getAvailableTimeSlots();

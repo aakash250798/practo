@@ -20,12 +20,12 @@ public class Doctor {
     public enum Specialization {
         Cardiologist, Physician, Orthopedics, Dermatologist, Dentist
     };
-    private String location;
+
     private Integer fees;
     private Integer experience;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Hospital hospital;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Hospital hospital;
 
     public enum Shift{
         Morning, Afternoon, Evening, Night
@@ -41,14 +41,13 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String id, String name, Specialization specialization, String location, Integer fees, Integer experience) {
+    public Doctor(String id, String name, Specialization specialization, Hospital hospital, Integer fees, Integer experience) {
         this.id = id;
         this.name = name;
         this.specialization = specialization;
-        this.location = location;
+        this.hospital = hospital;
         this.fees = fees;
         this.experience = experience;
-
         this.timeSlot = new TimeSlot();
     }
 }
