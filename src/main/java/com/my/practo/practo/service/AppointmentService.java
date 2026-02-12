@@ -11,6 +11,8 @@ import com.my.practo.practo.repository.DoctorRepository;
 import com.my.practo.practo.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,12 +31,12 @@ public class AppointmentService {
     @Autowired
     PatientRepository patientRepository;
 
-    public AppointmentDTO findAppointmentById(String id) {
+    public ResponseEntity<AppointmentDTO> findAppointmentById(String id) {
         Optional<Appointment> optional = appointmentRepository.findById(id);
         if(optional.isEmpty())
-            return new AppointmentDTO(null,"No appointment found");
+            return new ResponseEntity<AppointmentDTO>((AppointmentDTO) null,HttpStatus.NOT_FOUND);
 
-        return new AppointmentDTO(optional.get(),"Appointment found");
+        return new ResponseEntity<AppointmentDTO>(new AppointmentDTO(optional.get()),HttpStatus.OK);
     }
 
     // response format shud be better

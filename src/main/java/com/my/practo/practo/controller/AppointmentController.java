@@ -7,6 +7,7 @@ import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.service.AppointmentService;
 import com.my.practo.practo.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
 
-    @GetMapping("/findById")
-    private AppointmentDTO getAppointment(String id){
+    @GetMapping("/findById/{id}")
+    private ResponseEntity<AppointmentDTO> getAppointment(@PathVariable String id){
         return appointmentService.findAppointmentById(id);
     }
 

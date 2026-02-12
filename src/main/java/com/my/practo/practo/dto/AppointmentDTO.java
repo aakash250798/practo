@@ -18,14 +18,15 @@ public class AppointmentDTO {
     private String patientName;
     private String patientId;
     private LocalDateTime timing;
-    private String finalResponse;
 
-    public AppointmentDTO (Appointment appointment, String finalResponse){
+    public AppointmentDTO (Appointment appointment){
+        this.doctorId = appointment.getDoctor().getId();
+        this.patientId = appointment.getPatient().getId();
         this.appointmentId = appointment.getId();
         this.doctorName = appointment.getDoctor().getName();
         this.patientName = appointment.getPatient().getName();
         this.timing = appointment.getTimeSlot();
-        this.finalResponse = finalResponse;
+
     }
 
     public AppointmentDTO(String doctorId, String patientId, LocalDateTime timing){
