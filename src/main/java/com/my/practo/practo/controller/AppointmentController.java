@@ -18,8 +18,8 @@ public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
 
-    @GetMapping("/find")
-    private Appointment getAppointment(String id){
+    @GetMapping("/findById")
+    private AppointmentDTO getAppointment(String id){
         return appointmentService.findAppointmentById(id);
     }
 

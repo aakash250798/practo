@@ -29,9 +29,12 @@ public class AppointmentService {
     @Autowired
     PatientRepository patientRepository;
 
-    public Appointment findAppointmentById(String id) {
-        //make sure appointment is correct
-        return appointmentRepository.findById(id).get();
+    public AppointmentDTO findAppointmentById(String id) {
+        Optional<Appointment> optional = appointmentRepository.findById(id);
+        if(optional.isEmpty())
+            return new AppointmentDTO(null,"No appointment found");
+
+        return new AppointmentDTO(optional.get(),"Appointment found");
     }
 
     // response format shud be better
@@ -48,7 +51,7 @@ public class AppointmentService {
         Doctor doctor = optionalDoctor.get();
         Patient patient = optionalPatient.get();
         LocalDateTime timing = appointmentDTO.getTiming();
-        if(doctor.getTimeSlot().bookTimeSlot(timing)) {
+        if (doctor.getTimeSlot().bookTimeSlot(timing)) {
             TimeSlot timeSlot = doctor.getTimeSlot();
             timeSlot.setBookedTimeSlots(timing);
             doctor.setTimeSlot(timeSlot);
@@ -62,12 +65,7 @@ public class AppointmentService {
             return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
                     doctor.getSpecialization(), patient.getName(), doctor.getHospital(), timing, doctor.getFees());
 
-        }
-
-
-            // book appointment
-
-        else
+        } else
             return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.getName(), doctor.getSpecialization(), patient.getName(), doctor.getHospital(), appointmentDTO.getTiming(), null);
     }
 }
