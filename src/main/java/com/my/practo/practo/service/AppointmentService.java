@@ -34,7 +34,7 @@ public class AppointmentService {
     public ResponseEntity<AppointmentDTO> findAppointmentById(String id) {
         Optional<Appointment> optional = appointmentRepository.findById(id);
         if(optional.isEmpty())
-            return new ResponseEntity<AppointmentDTO>((AppointmentDTO) null,HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         return new ResponseEntity<AppointmentDTO>(new AppointmentDTO(optional.get()),HttpStatus.OK);
     }
