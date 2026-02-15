@@ -32,8 +32,4 @@ public class Appointment {
 
     public Appointment() {
     }
-
-//    public Appointment(String id, Integer timeSlot, Doctor doctor, Patient patient) {
-//        this.id
-//    }
 }

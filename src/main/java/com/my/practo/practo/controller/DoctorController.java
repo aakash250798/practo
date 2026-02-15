@@ -1,6 +1,7 @@
 package com.my.practo.practo.controller;
 
 import com.my.practo.practo.dto.DoctorDTO;
+import com.my.practo.practo.dto.RequestDTO;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,15 @@ public class DoctorController {
     @Autowired
     DoctorService practoService;
 
-    //Not to expose the Doctor entity
-//    @GetMapping("/find")
-//    private List<Doctor> findAllDoctors(){
-//        return practoService.findAllDoctors();
-//    }
-
     @GetMapping("/findBySpecialization")
     private Set<DoctorDTO> findBySpecialization(@RequestParam String specialization){
         return practoService.findAllDoctorsBySpecialization(specialization);
     }
+
+    @GetMapping("/find")
+    private Set<DoctorDTO> findAll(@RequestBody RequestDTO requestDTO){
+        return practoService.findAll(requestDTO);
+    }
+
+
 }

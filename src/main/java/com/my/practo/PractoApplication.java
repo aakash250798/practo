@@ -1,23 +1,17 @@
 package com.my.practo;
 
 import com.my.practo.practo.dto.AppointmentDTO;
-import com.my.practo.practo.dto.TimeSlot;
-import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.entity.Hospital;
-import com.my.practo.practo.entity.Patient;
 import com.my.practo.practo.repository.HospitalRepository;
 import com.my.practo.practo.service.AppointmentService;
 import com.my.practo.practo.service.DoctorService;
 import com.my.practo.practo.service.PatientService;
 import com.my.practo.practo.staticData.PractoData;
 import jakarta.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication

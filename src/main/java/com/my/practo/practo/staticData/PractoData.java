@@ -2,11 +2,9 @@ package com.my.practo.practo.staticData;
 
 import com.my.practo.practo.dto.AppointmentDTO;
 import com.my.practo.practo.dto.TimeSlot;
-import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.entity.Hospital;
 import com.my.practo.practo.entity.Patient;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,8 +18,9 @@ public class PractoData {
         Hospital h5 = new Hospital("H005", "Narayana Health", "Electronic City", "https://www.narayanahealth.org", "080-55667788", "258/A, Bommasandra", "Industrial Area", "Bangalore", "Karnataka", "560099", "India");
         return Arrays.asList(h1, h2, h3, h4, h5);
     }
-    public static List<Doctor> getDoctorValues(List<Hospital>hospitals){
-        Doctor d1 = new Doctor("DOC_101", "Dr. Aarav Malhotra", Doctor.Specialization.Orthopedics,hospitals.get(0) , 500, 6);
+
+    public static List<Doctor> getDoctorValues(List<Hospital> hospitals) {
+        Doctor d1 = new Doctor("DOC_101", "Dr. Aarav Malhotra", Doctor.Specialization.Orthopedics, hospitals.get(0), 500, 6);
         Doctor d2 = new Doctor("DOC_102", "Dr. Meera Iyer", Doctor.Specialization.Dermatologist, hospitals.get(3), 550, 7);
         Doctor d3 = new Doctor("DOC_103", "Dr. Rohit Verma", Doctor.Specialization.Physician, hospitals.get(1), 600, 8);
         Doctor d4 = new Doctor("DOC_104", "Dr. Rohan Kulkarni", Doctor.Specialization.Dermatologist, hospitals.get(0), 850, 10);
@@ -45,7 +44,7 @@ public class PractoData {
 
     }
 
-    public static List<Patient> getPatientsValues(){
+    public static List<Patient> getPatientsValues() {
         Patient p1 = new Patient("PAT_101", "Arjun");
         Patient p2 = new Patient("PAT_102", "Ananya");
         Patient p3 = new Patient("PAT_103", "Rohit");
@@ -71,7 +70,6 @@ public class PractoData {
         Patient p23 = new Patient("PAT_123", "Jay");
         Patient p24 = new Patient("PAT_124", "Dev");
         Patient p25 = new Patient("PAT_125", "Ritesh");
-
         return Arrays.asList(
                 p1, p2, p3, p4, p5, p6, p7, p8, p9, p10,
                 p11, p12, p13, p14, p15, p16, p17, p18, p19, p20,
@@ -80,7 +78,7 @@ public class PractoData {
 
     }
 
-    public static List<AppointmentDTO> getAppointmentValues(){
+    public static List<AppointmentDTO> getAppointmentValues() {
         AppointmentDTO a1 = new AppointmentDTO("DOC_101", "PAT_101", TimeSlot.startTime.plusHours(9));
         AppointmentDTO a2 = new AppointmentDTO("DOC_105", "PAT_104", TimeSlot.startTime.plusHours(12));
         AppointmentDTO a3 = new AppointmentDTO("DOC_108", "PAT_108", TimeSlot.startTime.plusHours(15));
@@ -91,7 +89,6 @@ public class PractoData {
         AppointmentDTO a8 = new AppointmentDTO("DOC_114", "PAT_105", TimeSlot.startTime.plusHours(16));
         AppointmentDTO a9 = new AppointmentDTO("DOC_106", "PAT_107", TimeSlot.startTime.plusHours(17));
         AppointmentDTO a10 = new AppointmentDTO("DOC_109", "PAT_103", TimeSlot.startTime.plusHours(21));
-
         return Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
     }
 }

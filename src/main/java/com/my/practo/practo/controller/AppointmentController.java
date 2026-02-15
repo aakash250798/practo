@@ -20,7 +20,8 @@ public class AppointmentController {
     AppointmentService appointmentService;
 
     @GetMapping("/findById/{id}")
-    private ResponseEntity<AppointmentDTO> getAppointment(@PathVariable String id){
+    private ResponseEntity<AppointmentDTO> getAppointment(@PathVariable String id, @RequestHeader (required = false) String authorization){
+        // check authorized or not
         return appointmentService.findAppointmentById(id);
     }
 

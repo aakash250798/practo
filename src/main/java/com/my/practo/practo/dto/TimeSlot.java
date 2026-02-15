@@ -25,7 +25,6 @@ public class TimeSlot {
             availableTimeSlots.remove(time);
             bookedTimeSlots.add(time);
         }
-
     }
 
     public boolean bookTimeSlot(LocalDateTime time){

@@ -17,15 +17,7 @@ public class BookingDTO {
     private LocalDateTime timing;
     private Integer fees;
 
-    public BookingDTO(String message,
-                      String appointmentId,
-                      String doctorName,
-                      Doctor.Specialization specialization,
-                      String patientName,
-                      Hospital hospital,
-                      LocalDateTime timing,
-                      Integer fees) {
-
+    public BookingDTO(String message, String appointmentId, String doctorName, Doctor.Specialization specialization, String patientName, Hospital hospital, LocalDateTime timing, Integer fees) {
         this.message = message;
         this.appointmentId = appointmentId;
         this.doctorName = doctorName;
@@ -35,5 +27,4 @@ public class BookingDTO {
         this.timing = timing;
         this.fees = fees;
     }
-
 }
