@@ -5,15 +5,13 @@ import com.my.practo.practo.dto.RequestDTO;
 import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.repository.DoctorRepository;
+import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.akash.security.SecurityService;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+
 
 @Service
 public class DoctorService {
@@ -52,19 +50,28 @@ public class DoctorService {
     public Set<DoctorDTO> findAll(RequestDTO requestDTO) {
 
         List<Doctor> doctorList = doctorRepository.findAll();
-        Set<DoctorDTO> doctors = new DoctorDTO().getDTOFromDoctor(new HashSet<>(doctorList));
-        return findByQuery(doctors, requestDTO);
-    }
+       List<DoctorDTO> doctors = new ArrayList<>(new DoctorDTO().getDTOFromDoctor(new HashSet<>(doctorList)));
 
-    private Set<DoctorDTO> findByQuery(Set<DoctorDTO> doctor, RequestDTO requestDTO) {
+        CharSequence query = requestDTO.getQuery();
+        doctors =  doctors.stream()
+                .filter(e -> (e.getName().contains(query)
+                        || e.getSpecialization().name().contains(query)
+                        || e.getHospital().getName().contains(query)))
+                .collect(Collectors.toList());
 
-        String[] fields = requestDTO.getSort().split(",");
-
-        Sort sort = Sort.by(
-                Sort.Direction.fromString(requestDTO.getDirection()),
-                fields
+        Map<String, Comparator<DoctorDTO>> sortMap = Map.of(
+                "id", Comparator.comparing(DoctorDTO::getId),
+                "name", Comparator.comparing(DoctorDTO::getName),
+                "fees", Comparator.comparing(DoctorDTO::getFees),
+                "experience", Comparator.comparing(DoctorDTO::getExperience)
         );
-       Set<Doctor> doctors = new HashSet<>(doctorRepository.search(requestDTO, sort));
-       return new DoctorDTO().getDTOFromDoctor(doctors);
+
+        Comparator<DoctorDTO> comparator = sortMap.get(requestDTO.getSort());
+        if (comparator != null) {
+            doctors.sort(requestDTO.getDirection().equals("DESC") ? comparator.reversed() : comparator);
+        }
+        return new HashSet<>(doctors);
+
     }
+
 }

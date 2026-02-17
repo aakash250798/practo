@@ -27,5 +27,4 @@ public class DoctorController {
         return practoService.findAll(requestDTO);
     }
 
-
 }
