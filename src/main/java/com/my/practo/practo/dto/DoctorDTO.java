@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -21,8 +22,8 @@ public class DoctorDTO {
     private Integer experience;
     private List<LocalDateTime> timeSlots;
 
-    public Set<DoctorDTO> getDTOFromDoctor(Set<Doctor> doctors) {
-        Set<DoctorDTO> doctorDTOS = new HashSet<>();
+    public static List<DoctorDTO> getDTOFromDoctor(List<Doctor> doctors) {
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
         for (Doctor doctor : doctors) {
             DoctorDTO doctorDTO = new DoctorDTO();
             doctorDTO.id = doctor.getId();

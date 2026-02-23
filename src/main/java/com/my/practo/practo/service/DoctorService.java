@@ -30,13 +30,14 @@ public class DoctorService {
         return doctorRepository.findAll();
     }
 
-    public Set<DoctorDTO> findAllDoctorsBySpecialization(String specialization) {
+    public List<DoctorDTO> findAllDoctorsBySpecialization(String specialization) {
         List<Doctor> doctors = doctorRepository.findAll();
-        Set<Doctor> specializedDoctors = new HashSet<>();
+        List<Doctor> specializedDoctors = new ArrayList<>();
         for (Doctor doctor : doctors) {
-            if (doctor.getSpecialization().name().equals(specialization)) specializedDoctors.add(doctor);
+            if (doctor.getSpecialization().name().equals(specialization))
+                specializedDoctors.add(doctor);
         }
-        return new DoctorDTO().getDTOFromDoctor(specializedDoctors);
+        return DoctorDTO.getDTOFromDoctor(specializedDoctors);
     }
 
     public List<Appointment> findAppointmentByDoctor(String id) {
@@ -51,19 +52,20 @@ public class DoctorService {
         }
     }
 
-    public Set<DoctorDTO> findAll(RequestDTO requestDTO) {
+    public List<DoctorDTO> findAll(RequestDTO requestDTO) {
 
 
-        Pageable pageable = PageRequest.of(requestDTO.getPage(), requestDTO.getSize(), Sort.by(requestDTO.getSort()));
-        Set<Doctor> doctors = new HashSet<>();
+        Pageable pageable = PageRequest.of(requestDTO.getPage(),
+                requestDTO.getSize(), Sort.by(requestDTO.getSort()));
+        List<Doctor> doctors = new ArrayList<>();
         if (requestDTO.getQuery() == null || requestDTO.getQuery().trim().isEmpty()) {
-            doctors = doctorRepository.findAll(pageable).toSet();
+            doctors = doctorRepository.findAll(pageable).toList();
         } else {
             doctors = doctorRepository.searchDoctors(requestDTO.getQuery(),
                     PageRequest.of(requestDTO.getPage(), requestDTO.getSize(),
-                            Sort.by(requestDTO.getSort()))).toSet();
+                            Sort.by(requestDTO.getSort()))).toList();
         }
-        return new DoctorDTO().getDTOFromDoctor(doctors);
+        return DoctorDTO.getDTOFromDoctor(doctors);
     }
 
 }

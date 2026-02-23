@@ -18,12 +18,12 @@ public class DoctorController {
     DoctorService practoService;
 
     @GetMapping("/findBySpecialization")
-    private Set<DoctorDTO> findBySpecialization(@RequestParam String specialization) {
+    private List<DoctorDTO> findBySpecialization(@RequestParam String specialization) {
         return practoService.findAllDoctorsBySpecialization(specialization);
     }
 
     @GetMapping("/find")
-    private Set<DoctorDTO> findAll(@RequestBody RequestDTO requestDTO) {
+    private List<DoctorDTO> findAll(@RequestBody RequestDTO requestDTO) {
         return practoService.findAll(requestDTO);
     }
 
