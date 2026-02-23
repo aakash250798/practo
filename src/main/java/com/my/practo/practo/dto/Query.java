@@ -7,4 +7,5 @@ public class Query {
     String id;
     String name;
     String specialization;
+
 }

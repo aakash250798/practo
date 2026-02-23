@@ -7,6 +7,10 @@ import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.repository.DoctorRepository;
 import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -49,29 +53,17 @@ public class DoctorService {
 
     public Set<DoctorDTO> findAll(RequestDTO requestDTO) {
 
-        List<Doctor> doctorList = doctorRepository.findAll();
-       List<DoctorDTO> doctors = new ArrayList<>(new DoctorDTO().getDTOFromDoctor(new HashSet<>(doctorList)));
 
-        CharSequence query = requestDTO.getQuery();
-        doctors =  doctors.stream()
-                .filter(e -> (e.getName().contains(query)
-                        || e.getSpecialization().name().contains(query)
-                        || e.getHospital().getName().contains(query)))
-                .collect(Collectors.toList());
-
-        Map<String, Comparator<DoctorDTO>> sortMap = Map.of(
-                "id", Comparator.comparing(DoctorDTO::getId),
-                "name", Comparator.comparing(DoctorDTO::getName),
-                "fees", Comparator.comparing(DoctorDTO::getFees),
-                "experience", Comparator.comparing(DoctorDTO::getExperience)
-        );
-
-        Comparator<DoctorDTO> comparator = sortMap.get(requestDTO.getSort());
-        if (comparator != null) {
-            doctors.sort(requestDTO.getDirection().equals("DESC") ? comparator.reversed() : comparator);
+        Pageable pageable = PageRequest.of(requestDTO.getPage(), requestDTO.getSize(), Sort.by(requestDTO.getSort()));
+        Set<Doctor> doctors = new HashSet<>();
+        if (requestDTO.getQuery() == null || requestDTO.getQuery().trim().isEmpty()) {
+            doctors = doctorRepository.findAll(pageable).toSet();
+        } else {
+            doctors = doctorRepository.searchDoctors(requestDTO.getQuery(),
+                    PageRequest.of(requestDTO.getPage(), requestDTO.getSize(),
+                            Sort.by(requestDTO.getSort()))).toSet();
         }
-        return new HashSet<>(doctors);
-
+        return new DoctorDTO().getDTOFromDoctor(doctors);
     }
 
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 public class RequestDTO {
     String sort;
     String direction;
-    public String query;
+    String query;
+    Integer size;
+    Integer page;
 
 }
