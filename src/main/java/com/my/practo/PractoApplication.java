@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.io.IOException;
 import java.util.List;
 
 @SpringBootApplication
@@ -36,7 +38,7 @@ public class PractoApplication {
     }
 
     @PostConstruct
-    public void setSomeValues() {
+    public void setSomeValues() throws IOException {
 
         List<Hospital> hospitals = PractoData.getHospitalValues();
         for(Hospital hospital:hospitals){

@@ -9,12 +9,18 @@ import com.my.practo.practo.entity.Patient;
 import com.my.practo.practo.repository.AppointmentRepository;
 import com.my.practo.practo.repository.DoctorRepository;
 import com.my.practo.practo.repository.PatientRepository;
+import com.sendgrid.*;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,7 +38,8 @@ public class AppointmentService {
     PatientRepository patientRepository;
 
     @Autowired
-    NotificationService notificationService;
+    private Environment env;
+
 
     public ResponseEntity<AppointmentDTO> findAppointmentById(String id) {
         Optional<Appointment> optional = appointmentRepository.findById(id);
@@ -44,7 +51,7 @@ public class AppointmentService {
 
     // response format shud be better
     @Transactional
-    public BookingDTO saveAppointment(AppointmentDTO appointmentDTO) {
+    public BookingDTO saveAppointment(AppointmentDTO appointmentDTO) throws IOException {
         //make sure appointment is correct
         Optional<Doctor> optionalDoctor = doctorRepository.findById(appointmentDTO.getDoctorId());
         Optional<Patient> optionalPatient = patientRepository.findById(appointmentDTO.getPatientId());
@@ -68,8 +75,7 @@ public class AppointmentService {
             appointment.setPatient(patient);
             appointmentRepository.save(appointment);
 
-            notificationService.sendAppointmentNotification("aakash250798@gmail.com", timing.toString());
-            // notification service
+            sendEmail();// notification service
 
 
             return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
@@ -77,5 +83,30 @@ public class AppointmentService {
 
         } else
             return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.getName(), doctor.getSpecialization(), patient.getName(), doctor.getHospital(), appointmentDTO.getTiming(), null);
+    }
+
+    public void sendEmail() throws IOException {
+
+        Email from = new Email(readProperty("mail"));
+        String subject = "Appointment Confirmed";
+        Email to = new Email(readProperty("mail"));
+
+        Content content = new Content("text/plain", "Your appointment is booked.");
+
+        Mail mail = new Mail(from, subject, to, content);
+
+        SendGrid sg = new SendGrid(readProperty("mailApiKey"));
+
+        Request request = new Request();
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
+
+        sg.api(request);
+    }
+
+    public String readProperty(String property) {
+        return env.getProperty(property);
+
     }
 }
