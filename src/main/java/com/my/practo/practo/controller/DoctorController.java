@@ -5,6 +5,9 @@ import com.my.practo.practo.dto.RequestDTO;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +28,19 @@ public class DoctorController {
     @GetMapping("/find")
     private List<DoctorDTO> findAll(@RequestBody RequestDTO requestDTO) {
         return practoService.findAll(requestDTO);
+    }
+
+    @GetMapping("/findById")
+    private ResponseEntity<DoctorDTO> findById(@RequestBody String id) {
+       DoctorDTO doctorDTO = practoService.findById(id);
+        HttpStatus status;
+       if(doctorDTO == null){
+           status = HttpStatus.NOT_FOUND;
+       }
+       else
+           status = HttpStatus.OK;
+
+       return new ResponseEntity<>(doctorDTO,status);
     }
 
 }

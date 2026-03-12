@@ -5,17 +5,14 @@ import com.my.practo.practo.dto.RequestDTO;
 import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.repository.DoctorRepository;
-import org.apache.logging.log4j.util.PropertySource;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-import java.util.stream.Collectors;
-
 
 @Service
 public class DoctorService {
@@ -37,7 +34,11 @@ public class DoctorService {
             if (doctor.getSpecialization().name().equals(specialization))
                 specializedDoctors.add(doctor);
         }
-        return DoctorDTO.getDTOFromDoctor(specializedDoctors);
+        List<DoctorDTO> doctorDTOList = new ArrayList<>();
+        for(Doctor doctor : specializedDoctors){
+            doctorDTOList.add(DoctorDTO.getDTOFromDoctor(doctor));
+        }
+        return doctorDTOList;
     }
 
     public List<Appointment> findAppointmentByDoctor(String id) {
@@ -54,7 +55,6 @@ public class DoctorService {
 
     public List<DoctorDTO> findAll(RequestDTO requestDTO) {
 
-
         Pageable pageable = PageRequest.of(requestDTO.getPage(),
                 requestDTO.getSize(), Sort.by(requestDTO.getSort()));
         List<Doctor> doctors = new ArrayList<>();
@@ -65,7 +65,16 @@ public class DoctorService {
                     PageRequest.of(requestDTO.getPage(), requestDTO.getSize(),
                             Sort.by(requestDTO.getSort()))).toList();
         }
-        return DoctorDTO.getDTOFromDoctor(doctors);
+        List<DoctorDTO> doctorDTOList = new ArrayList<>();
+        for(Doctor doctor : doctors){
+            doctorDTOList.add(DoctorDTO.getDTOFromDoctor(doctor));
+        }
+
+        return doctorDTOList;
     }
 
+    public DoctorDTO findById(String id) {
+        Optional<Doctor> doctors =  doctorRepository.findById(id);
+        return doctors.map(DoctorDTO::getDTOFromDoctor).orElse(null);
+    }
 }

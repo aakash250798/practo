@@ -31,6 +31,9 @@ public class AppointmentService {
     @Autowired
     PatientRepository patientRepository;
 
+    @Autowired
+    NotificationService notificationService;
+
     public ResponseEntity<AppointmentDTO> findAppointmentById(String id) {
         Optional<Appointment> optional = appointmentRepository.findById(id);
         if(optional.isEmpty())
@@ -64,6 +67,11 @@ public class AppointmentService {
             appointment.setDoctor(doctor);
             appointment.setPatient(patient);
             appointmentRepository.save(appointment);
+
+            notificationService.sendAppointmentNotification("aakash250798@gmail.com", timing.toString());
+            // notification service
+
+
             return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
                     doctor.getSpecialization(), patient.getName(), doctor.getHospital(), timing, doctor.getFees());
 

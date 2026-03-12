@@ -22,9 +22,8 @@ public class DoctorDTO {
     private Integer experience;
     private List<LocalDateTime> timeSlots;
 
-    public static List<DoctorDTO> getDTOFromDoctor(List<Doctor> doctors) {
-        List<DoctorDTO> doctorDTOS = new ArrayList<>();
-        for (Doctor doctor : doctors) {
+    public static DoctorDTO getDTOFromDoctor(Doctor doctor) {
+
             DoctorDTO doctorDTO = new DoctorDTO();
             doctorDTO.id = doctor.getId();
             doctorDTO.name = doctor.getName();
@@ -33,8 +32,8 @@ public class DoctorDTO {
             doctorDTO.fees = doctor.getFees();
             doctorDTO.experience = doctor.getExperience();
             doctorDTO.timeSlots = doctor.getTimeSlot().getAvailableTimeSlots();
-            doctorDTOS.add(doctorDTO);
-        }
-        return doctorDTOS;
+
+
+        return doctorDTO;
     }
 }
