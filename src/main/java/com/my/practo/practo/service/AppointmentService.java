@@ -1,5 +1,6 @@
 package com.my.practo.practo.service;
 
+import com.my.practo.practo.configuration.RabbitMQConfig;
 import com.my.practo.practo.dto.AppointmentDTO;
 import com.my.practo.practo.dto.BookingDTO;
 import com.my.practo.practo.dto.TimeSlot;
@@ -11,6 +12,7 @@ import com.my.practo.practo.repository.DoctorRepository;
 import com.my.practo.practo.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,24 +27,29 @@ import java.util.UUID;
 @Service
 public class AppointmentService {
 
-    @Autowired
-    AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
+    private final RabbitTemplate rabbitTemplate;
 
-    @Autowired
-    DoctorRepository doctorRepository;
+    public AppointmentService(
+            AppointmentRepository appointmentRepository,
+            DoctorRepository doctorRepository,
+            PatientRepository patientRepository,
+            RabbitTemplate rabbitTemplate) {
 
-    @Autowired
-    PatientRepository patientRepository;
-
-    @Autowired
-    NotificationService notificationService;
+        this.appointmentRepository = appointmentRepository;
+        this.doctorRepository = doctorRepository;
+        this.patientRepository = patientRepository;
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public ResponseEntity<AppointmentDTO> findAppointmentById(String id) {
         Optional<Appointment> optional = appointmentRepository.findById(id);
-        if(optional.isEmpty())
+        if (optional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-        return new ResponseEntity<AppointmentDTO>(new AppointmentDTO(optional.get()),HttpStatus.OK);
+        return new ResponseEntity<AppointmentDTO>(new AppointmentDTO(optional.get()), HttpStatus.OK);
     }
 
     // response format shud be better
@@ -70,18 +77,22 @@ public class AppointmentService {
             appointment.setDoctor(doctor);
             appointment.setPatient(patient);
             appointmentRepository.save(appointment);
-            try {
-                notificationService.sendEmail(new AppointmentDTO(appointment));// notification service
-            }
-            catch (IOException e){
-                log.error("Failed while sending mails {}", e.getLocalizedMessage());
-            }
+            publishAppointmentEvent(appointmentDTO);
 
             return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
                     doctor.getSpecialization(), patient.getName(), doctor.getHospital(), timing, doctor.getFees());
 
         } else
             return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.getName(), doctor.getSpecialization(), patient.getName(), doctor.getHospital(), appointmentDTO.getTiming(), null);
+    }
+
+    private void publishAppointmentEvent(AppointmentDTO dto) {
+
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.EXCHANGE,
+                "Appointment booked",
+                dto
+        );
     }
 
 }

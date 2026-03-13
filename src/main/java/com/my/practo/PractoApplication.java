@@ -9,6 +9,7 @@ import com.my.practo.practo.service.PatientService;
 import com.my.practo.practo.staticData.PractoData;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 import java.util.List;
 
+@EnableRabbit
 @SpringBootApplication
 public class PractoApplication {
 

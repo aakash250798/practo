@@ -1,5 +1,6 @@
 package com.my.practo.practo.service;
 
+import com.my.practo.practo.configuration.RabbitMQConfig;
 import com.my.practo.practo.dto.AppointmentDTO;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -7,6 +8,7 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -23,6 +25,12 @@ public class NotificationService {
 
     @Value("${mail}")
     private String mail;
+
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE)
+    public void handleAppointmentBooked(AppointmentDTO dto) throws IOException {
+        sendEmail(dto);
+    }
 
     private final SendGrid sendGrid;
     private final TemplateEngine templateEngine;
