@@ -9,10 +9,6 @@ import com.my.practo.practo.entity.Patient;
 import com.my.practo.practo.repository.AppointmentRepository;
 import com.my.practo.practo.repository.DoctorRepository;
 import com.my.practo.practo.repository.PatientRepository;
-import com.sendgrid.*;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -38,8 +34,7 @@ public class AppointmentService {
     PatientRepository patientRepository;
 
     @Autowired
-    private Environment env;
-
+    NotificationService notificationService;
 
     public ResponseEntity<AppointmentDTO> findAppointmentById(String id) {
         Optional<Appointment> optional = appointmentRepository.findById(id);
@@ -74,9 +69,7 @@ public class AppointmentService {
             appointment.setDoctor(doctor);
             appointment.setPatient(patient);
             appointmentRepository.save(appointment);
-
-            sendEmail();// notification service
-
+            notificationService.sendEmail();// notification service
 
             return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
                     doctor.getSpecialization(), patient.getName(), doctor.getHospital(), timing, doctor.getFees());
@@ -85,28 +78,4 @@ public class AppointmentService {
             return new BookingDTO("Booking Failed due to unavailability of timeSlot", null, doctor.getName(), doctor.getSpecialization(), patient.getName(), doctor.getHospital(), appointmentDTO.getTiming(), null);
     }
 
-    public void sendEmail() throws IOException {
-
-        Email from = new Email(readProperty("mail"));
-        String subject = "Appointment Confirmed";
-        Email to = new Email(readProperty("mail"));
-
-        Content content = new Content("text/plain", "Your appointment is booked.");
-
-        Mail mail = new Mail(from, subject, to, content);
-
-        SendGrid sg = new SendGrid(readProperty("mailApiKey"));
-
-        Request request = new Request();
-        request.setMethod(Method.POST);
-        request.setEndpoint("mail/send");
-        request.setBody(mail.build());
-
-        sg.api(request);
-    }
-
-    public String readProperty(String property) {
-        return env.getProperty(property);
-
-    }
 }
