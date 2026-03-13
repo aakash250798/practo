@@ -48,9 +48,9 @@ public class PractoApplication {
         doctorService.bulkSaveDoctors(PractoData.getDoctorValues(hospitals));
         patientService.bulkSavePatients(PractoData.getPatientsValues());
 
-        for (AppointmentDTO a : PractoData.getAppointmentValues()) {
-            appointmentService.saveAppointment(a);
-        }
+//        for (AppointmentDTO a : PractoData.getAppointmentValues()) {
+//            appointmentService.saveAppointment(a);
+//        }
 
     }
 

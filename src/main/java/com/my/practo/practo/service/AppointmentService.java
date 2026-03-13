@@ -10,8 +10,8 @@ import com.my.practo.practo.repository.AppointmentRepository;
 import com.my.practo.practo.repository.DoctorRepository;
 import com.my.practo.practo.repository.PatientRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class AppointmentService {
 
@@ -46,7 +47,7 @@ public class AppointmentService {
 
     // response format shud be better
     @Transactional
-    public BookingDTO saveAppointment(AppointmentDTO appointmentDTO) throws IOException {
+    public BookingDTO saveAppointment(AppointmentDTO appointmentDTO) {
         //make sure appointment is correct
         Optional<Doctor> optionalDoctor = doctorRepository.findById(appointmentDTO.getDoctorId());
         Optional<Patient> optionalPatient = patientRepository.findById(appointmentDTO.getPatientId());
@@ -69,7 +70,12 @@ public class AppointmentService {
             appointment.setDoctor(doctor);
             appointment.setPatient(patient);
             appointmentRepository.save(appointment);
-            notificationService.sendEmail(new AppointmentDTO(appointment));// notification service
+            try {
+                notificationService.sendEmail(new AppointmentDTO(appointment));// notification service
+            }
+            catch (IOException e){
+                log.error("Failed while sending mails {}", e.getLocalizedMessage());
+            }
 
             return new BookingDTO("Appointment Booked Successfully", appointment.getId(), doctor.getName(),
                     doctor.getSpecialization(), patient.getName(), doctor.getHospital(), timing, doctor.getFees());

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Confirmed</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background:#f7f5fa; padding:20px;">
+
+<table align="center" width="600" style="background: #f0fdf4;;padding:30px;border-radius:8px;">
+
+    <tr>
+        <td style="text-align:center;">
+            <h2 style="color:#2c3e50;">Appointment Confirmed</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p>Hi <b th:text="${patientName}"></b></p>
+            <p>Your appointment has been successfully booked.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+
+            <table width="100%" style="border-collapse:collapse;font-size:15px;">
+
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid #eee;"><b>Hospital</b></td>
+                    <td style="padding:8px;border-bottom:1px solid #eee;" th:text="${hospital}"></td>
+                </tr>
+
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid #eee;"><b>Doctor</b></td>
+                    <td style="padding:8px;border-bottom:1px solid #eee;" th:text="${doctorName}"></td>
+                </tr>
+
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid #eee;"><b>Specialization</b></td>
+                    <td style="padding:8px;border-bottom:1px solid #eee;" th:text="${specialization}"></td>
+                </tr>
+
+                <tr>
+                    <td style="padding:8px;border-bottom:1px solid #eee;"><b>Date & Time</b></td>
+                    <td style="padding:8px;border-bottom:1px solid #eee;" th:text="${timing}"></td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+
+    <p style="text-align:center;margin-top:20px;">
+        <img
+                src="https://play-lh.googleusercontent.com/stRFjUq40fX2uVc9DtopYJNojdPRJWYKkrIoGM69rOzS83l8fU6DpqTUVwc5cFY3ruEy"
+                alt="Practo Logo"
+                style="width:120px;opacity:0.9;">
+    </p>
+
+    <tr>
+        <td style="padding-top:25px;">
+            <p>Thank you for using <b>Practo</b>.</p>
+            <hr style="border:none;border-top:1px solid #eee;"/>
+            <small style="color:#777;">
+                You are receiving this email because you booked an appointment.
+            </small>
+        </td>
+    </tr>
+
+</table>
+
+</body>
+</html>
