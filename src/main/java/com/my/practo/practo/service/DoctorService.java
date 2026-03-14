@@ -5,12 +5,10 @@ import com.my.practo.practo.dto.RequestDTO;
 import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Doctor;
 import com.my.practo.practo.repository.DoctorRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.*;
 

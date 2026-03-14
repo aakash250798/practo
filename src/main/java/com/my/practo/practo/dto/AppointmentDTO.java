@@ -2,7 +2,6 @@ package com.my.practo.practo.dto;
 
 import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Hospital;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
