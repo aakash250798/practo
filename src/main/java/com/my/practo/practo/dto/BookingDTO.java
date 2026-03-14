@@ -27,4 +27,18 @@ public class BookingDTO {
         this.timing = timing;
         this.fees = fees;
     }
+
+    @Override
+    public String toString(){
+        return "BookingDTO{" +
+                "message='" + message + '\'' +
+                ", appointmentId='" + appointmentId + '\'' +
+                ", doctorName='" + doctorName + '\'' +
+                ", specialization=" + specialization +
+                ", patientName='" + patientName + '\'' +
+                ", hospital=" + hospital +
+                ", timing=" + timing +
+                ", fees=" + fees +
+                '}';
+    }
 }

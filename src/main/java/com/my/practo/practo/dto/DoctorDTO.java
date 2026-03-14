@@ -5,6 +5,7 @@ import com.my.practo.practo.entity.Hospital;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -12,6 +13,7 @@ import java.util.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class DoctorDTO {
     private String id;
     private String name;
@@ -21,18 +23,5 @@ public class DoctorDTO {
     private Integer experience;
     private List<LocalDateTime> timeSlots;
 
-    public static DoctorDTO getDTOFromDoctor(Doctor doctor) {
 
-            DoctorDTO doctorDTO = new DoctorDTO();
-            doctorDTO.id = doctor.getId();
-            doctorDTO.name = doctor.getName();
-            doctorDTO.specialization = doctor.getSpecialization();
-            doctorDTO.hospital = doctor.getHospital();
-            doctorDTO.fees = doctor.getFees();
-            doctorDTO.experience = doctor.getExperience();
-            doctorDTO.timeSlots = doctor.getTimeSlot().getAvailableTimeSlots();
-
-
-        return doctorDTO;
-    }
 }

@@ -4,11 +4,13 @@ import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Hospital;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@Setter
 public class AppointmentDTO {
 
     private String appointmentId;
@@ -22,18 +24,7 @@ public class AppointmentDTO {
     private Integer fees;
     private Integer experience;
 
-    public AppointmentDTO(Appointment appointment) {
-        this.doctorId = appointment.getDoctor().getId();
-        this.patientId = appointment.getPatient().getId();
-        this.appointmentId = appointment.getId();
-        this.doctorName = appointment.getDoctor().getName();
-        this.patientName = appointment.getPatient().getName();
-        this.timing = appointment.getTimeSlot();
-        this.specialization = appointment.getDoctor().getSpecialization().name();
-        this.hospital = getHospitalDetails(appointment.getDoctor().getHospital());
-        this.fees = appointment.getDoctor().getFees();
-        this.experience = appointment.getDoctor().getExperience();
-    }
+
 
     public AppointmentDTO(String doctorId, String patientId, LocalDateTime timing) {
         this.doctorId = doctorId;
@@ -41,9 +32,6 @@ public class AppointmentDTO {
         this.timing = timing;
     }
 
-    private String getHospitalDetails(Hospital hospital) {
-        return hospital.getName() + "," + hospital.getAddressLine1() + "," +
-                hospital.getAddressLine2() + "," + hospital.getCity();
-    }
+
 
 }

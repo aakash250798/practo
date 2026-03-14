@@ -4,8 +4,8 @@ import com.my.practo.practo.dto.DoctorDTO;
 import com.my.practo.practo.dto.RequestDTO;
 import com.my.practo.practo.entity.Appointment;
 import com.my.practo.practo.entity.Doctor;
+import com.my.practo.practo.mapping.DoctorMapper;
 import com.my.practo.practo.repository.DoctorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,10 +16,14 @@ import java.util.*;
 public class DoctorService {
 
     // field injection to be removed
-    // add interface instead
+    private final DoctorRepository doctorRepository;
+    private final DoctorMapper doctorMapper;
 
-    @Autowired
-    DoctorRepository doctorRepository;
+    public DoctorService(DoctorRepository doctorRepository,
+                         DoctorMapper doctorMapper) {
+        this.doctorRepository = doctorRepository;
+        this.doctorMapper = doctorMapper;
+    }
 
     public List<Doctor> findAllDoctors() {
         return doctorRepository.findAll();
@@ -34,7 +38,7 @@ public class DoctorService {
         }
         List<DoctorDTO> doctorDTOList = new ArrayList<>();
         for(Doctor doctor : specializedDoctors){
-            doctorDTOList.add(DoctorDTO.getDTOFromDoctor(doctor));
+            doctorDTOList.add(doctorMapper.mapToDTO(doctor));
         }
         return doctorDTOList;
     }
@@ -65,7 +69,7 @@ public class DoctorService {
         }
         List<DoctorDTO> doctorDTOList = new ArrayList<>();
         for(Doctor doctor : doctors){
-            doctorDTOList.add(DoctorDTO.getDTOFromDoctor(doctor));
+            doctorDTOList.add(doctorMapper.mapToDTO(doctor));
         }
 
         return doctorDTOList;
@@ -73,6 +77,6 @@ public class DoctorService {
 
     public DoctorDTO findById(String id) {
         Optional<Doctor> doctors =  doctorRepository.findById(id);
-        return doctors.map(DoctorDTO::getDTOFromDoctor).orElse(null);
+        return doctors.map(doctorMapper::mapToDTO).orElse(null);
     }
 }

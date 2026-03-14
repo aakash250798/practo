@@ -1,7 +1,8 @@
-package com.my.practo.practo.service;
+package com.my.practo.practo.mapping;
 
 import com.my.practo.practo.configuration.RabbitMQConfig;
 import com.my.practo.practo.dto.AppointmentDTO;
+import com.my.practo.practo.service.NotificationService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
